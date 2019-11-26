@@ -27,14 +27,14 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="navbar-right">
-        <% if(logged == "no"){ %>
-          <a href="http://localhost:5000/login" class="pull-right"> Login</a>
-          <a href="http://localhost:5000/register" class="pull-right"> Register</a>
-        <% }else{ %>
-          <a href="http://localhost:5000/favouriteList" class="pull-left"> Movie Favourite List</a>
-          <a class="pull-left"> <%= username %></a>
-          <a href="http://localhost:5000/logout" class="pull-right"> Logout</a>
-        <% } %>
+          <% if(logged == "no"){ %>
+            <a href="http://localhost:5000/login" class="pull-right"> Login</a>
+            <a href="http://localhost:5000/register" class="pull-right"> Register</a>
+          <% }else{ %>
+            <a href="http://localhost:5000/favouriteList" class="pull-left"> Movie Favourite List</a>
+            <a class="pull-left"> <%= username %></a>
+            <a href="http://localhost:5000/logout" class="pull-right"> Logout</a>
+          <% } %>
         <!-- <a href="https://devcenter.heroku.com"><span class="glyphicon glyphicon-book"></span> Heroku Dev Center</a> -->
       </li>
     </ul>
