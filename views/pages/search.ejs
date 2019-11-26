@@ -72,7 +72,7 @@
       $.ajax({
         type:'post',
         data: { 'movie_title':movie_title, 'movie_type':movie_type ,  'year':year , 'imdb_id':imdb_id, 'movie_poster':movie_poster  },
-        url: 'http://localhost:5000/insertMovie',
+        url: 'https://searchthemovie.herokuapp.com/insertMovie',
 
         success:function(json){
           alert('Added to favourite')
