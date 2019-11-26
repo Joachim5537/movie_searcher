@@ -60,11 +60,11 @@
       $.ajax({
         type:'post',
         data: {'imdb_id':imdb_id, 'username':username  },
-        url: 'http://localhost:5000/deleteMovie',
+        url: 'https://searchthemovie.herokuapp.com/deleteMovie',
 
         success:function(){
           alert('Deleted the movie on your list')
-          window.location.href="http://localhost:5000/favouriteList"
+          window.location.href="https://searchthemovie.herokuapp.com/favouriteList"
         }
       })
     }
@@ -77,11 +77,11 @@
         $.ajax({
         type:'post',
         data: {'imdb_id':imdb_id, 'username':username, 'remark':remark  },
-        url: 'http://localhost:5000/editRemark',
+        url: 'https://searchthemovie.herokuapp.com/editRemark',
 
         success:function(){
           alert('Edited remark')
-          window.location.href="http://localhost:5000/favouriteList"
+          window.location.href="https://searchthemovie.herokuapp.com/favouriteList"
         }
       })
     }
