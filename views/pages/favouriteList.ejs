@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+  <div class="container">
+        
+    <div class="row m-t-100"> 
+            <h1 style="text-align:center;">Favourite List</h1>
+            <table id="movie_table" class="table table-bordered m-t-100" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Poster</th>
+                            <th>Movie title</th>
+                            <th>Type</th>
+                            <th>Year</th>
+                            <th>Remark</th>
+                            <th>Action</th>
+                        </tr>
+            
+                                <% 
+                                if(results != 0){
+                                for(var result of results){ 
+                                %>
+                                <tr>
+                                    <td><a href="<%= result.poster %>" target="blank"><img src="<%= result.poster %>" width="150px" height="200px;" > </img></a> </td>
+                                    <td><h3><%= result.title %></h3></td>  
+                                    <td><h3><%= result.type %></h3></td>  
+                                    <td><h3><%= result.year %></h3></td>
+                                    <td><input type="text" class="form-control" name="remark" id="remark_<%= result.imdb_id %>" value="<%= result.remark %>" ><button style="margin-top:10px" class="btn btn-primary pull-right"  onClick="editRemark('<%= result.imdb_id %>', '<%= result.username %>' )" >Edit</button> </td>
+                                    <td><button class="btn btn-primary"  onClick="deleteMovie('<%= result.imdb_id %>', '<%= result.username %>' )" >Delete</button></td>
+                                    
+                                </tr>
+                                <% } 
+                            }else{ %>
+                                 <tr>
+                                     <td colspan="5" style="text-align:center"> No Result</td>
+                                 </tr>   
+                            <% } %>
+                    </thead>
+                    <tbody>
+            
+            
+                    </tbody>
+                </table>
+    </div>
+    </div>
+
+
+
+
+  <script>
+    function deleteMovie(imdb_id, username){
+
+      $.ajax({
+        type:'post',
+        data: {'imdb_id':imdb_id, 'username':username  },
+        url: 'http://localhost:5000/deleteMovie',
+
+        success:function(){
+          alert('Deleted the movie on your list')
+          window.location.href="http://localhost:5000/favouriteList"
+        }
+      })
+    }
+
+    function editRemark(imdb_id, username){
+        // alert(imdb_id);
+        // alert(username)
+        remark = $('#remark_'+imdb_id).val();
+
+        $.ajax({
+        type:'post',
+        data: {'imdb_id':imdb_id, 'username':username, 'remark':remark  },
+        url: 'http://localhost:5000/editRemark',
+
+        success:function(){
+          alert('Edited remark')
+          window.location.href="http://localhost:5000/favouriteList"
+        }
+      })
+    }
+  </script>
+
+
+
+
+
+
+
+
+

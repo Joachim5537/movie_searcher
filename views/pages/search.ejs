@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+  <div class="container">
+    <div class="row m-t-100"> 
+        <label class="label-control text-center col-sm-4 col-sm-push-4 "><h2>Search the movie..</h2> </label>
+        <div class="col-sm-12">
+        <div class="col-sm-4 col-sm-push-4">
+        <form action="/search" method="post">
+        <input type="text" placeholder="Search the movie.." name="search_movie" class="form-control">
+        <input type="submit" style="margin-top:30px; margin-bottom:30px;" value="Search"  class="btn btn-primary pull-right">
+        </form>
+        </div>
+        </div>
+
+            <table id="movie_table" class="table table-bordered m-t-100" style="width:100%">\
+                <% 
+                if(error != null){
+                  %>
+                  <script>alert('<%=error%>')</script>
+                <% }%>
+                    <thead>
+                        <tr>
+                            <th>Poster</th>
+                            <th>Movie title</th>
+                            <th>Type</th>
+                            <th>Year</th>
+                            <th>Action</th>
+                        </tr>
+            
+                        
+                                <% 
+                                if(results){
+                                  for(var result of results){ %>
+                                    <tr>
+                                    <td><a href="<%= result.Poster %>" target="_blank"><img src="<%= result.Poster %>" width="150px" height="200px;" > </img></a> </td>
+                                    <td><h3><%= result.Title %></h3></td>  
+                                    <td><h3><%= result.Type %></h3></td>  
+                                    <td><h3><%= result.Year %></h3></td>
+                                    <td><button class="btn btn-primary"  onClick="addMovie('<%= result.Title %>','<%= result.Type %>','<%= result.Year %>','<%= result.imdbID %>', '<%= result.Poster %>' )" >Add to favourite</button></td>
+                                </tr>
+                                <% }
+                               }else{ %>
+                                <tr>
+                                    <td colspan="5" style="text-align:center"> No Result</td>
+                                </tr>   
+                           <% } %>
+                                
+                         
+                        
+                    </thead>
+                    <tbody>
+            
+            
+                    </tbody>
+                </table>
+    </div>
+    </div>
+
+  </div>
+
+  <script>
+    function addMovie(movie_title,movie_type,year,imdb_id, movie_poster){
+
+      $.ajax({
+        type:'post',
+        data: { 'movie_title':movie_title, 'movie_type':movie_type ,  'year':year , 'imdb_id':imdb_id, 'movie_poster':movie_poster  },
+        url: 'http://localhost:5000/insertMovie',
+
+        success:function(json){
+          alert('Added to favourite')
+        }
+      })
+    }
+  </script>
+
+
+
+
+
+
+
+
+
